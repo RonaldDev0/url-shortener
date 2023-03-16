@@ -1,25 +1,19 @@
 'use client'
-
 import { useState, useRef } from 'react'
+import Link from 'next/link'
 
 export default function Home () {
   const inputRef = useRef<any>()
-  const [shortURL, setShortURL] = useState('')
+  const [shortURL, setShortURL] = useState<string>('')
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
-    const url = inputRef.current.value
-    // TODO: Get API
-    fetch('/api/shortUrl', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ url })
-    }).then(res => res.json())
-      .then(data => {
-        setShortURL(data.shortUrl)
-      })
+    try {
+      const { shortUrl } = await getData(inputRef.current.value)
+      setShortURL(shortUrl)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -29,8 +23,20 @@ export default function Home () {
       <form onSubmit={handleSubmit}>
         <input type='text' ref={inputRef} />
         <button>Shorter</button>
-        <span>{shortURL}</span>
+        {
+          shortURL && <p>your new url is: <Link href={`/${shortURL}`}>z.vercel.app/{shortURL}</Link></p>
+        }
       </form>
     </div>
   )
+}
+
+async function getData (url: string) {
+  const res = await fetch('/api/shortUrl', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ url })
+  })
+
+  return res.json()
 }
