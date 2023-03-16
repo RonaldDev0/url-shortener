@@ -4,7 +4,7 @@ import { useState, useRef } from 'react'
 
 export default function Home () {
   const inputRef = useRef<any>()
-  const [shortURL, setShorURL] = useState('')
+  const [shortURL, setShortURL] = useState('')
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
@@ -18,8 +18,7 @@ export default function Home () {
       body: JSON.stringify({ url })
     }).then(res => res.json())
       .then(data => {
-        setShorURL(data.shortUrl)
-        console.log(shortURL)
+        setShortURL(data.shortUrl)
       })
   }
 
