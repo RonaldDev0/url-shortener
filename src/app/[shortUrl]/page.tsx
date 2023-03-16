@@ -1,22 +1,22 @@
 'use client'
 import { supabase } from '@/lib'
-import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
-export default function TestPage ({ params: { shortUrl } }: {params: { shortUrl: string }}) {
-  const [fullUrl, setFullUrl] = useState<any>([])
+export default function Navigate ({ params: { shortUrl } }: {params: { shortUrl: string }}) {
+  const router = useRouter()
 
   useEffect(() => {
-    async function updateData () {
-      const { data }: any = await supabase.from('urlShorter').select('*').eq('shortUrl', shortUrl)
-      const { url }: any = data[0]
-      setFullUrl(url)
-    } updateData()
-  }, [shortUrl])
+    async function redirect () {
+      router.push(await getUrl(shortUrl))
+    }redirect()
+  }, [shortUrl, router])
+}
 
-  return (
-    <div>
-      <h1>welcome to page: {shortUrl}</h1>
-      <h1>this is te original site: {fullUrl}</h1>
-    </div>
-  )
+async function getUrl (shortUrl: string) {
+  const { data }: any = await supabase.from('urlShorter').select('*').eq('shortUrl', shortUrl)
+  const { url }: any = data[0]
+  const redirect = `https://${url}`
+
+  return redirect
 }
