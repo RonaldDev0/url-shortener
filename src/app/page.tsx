@@ -2,6 +2,7 @@
 import { useState, useRef } from 'react'
 import Link from 'next/link'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+import QRCode from 'react-qr-code'
 
 // Compoents
 import { domain, urlValidation } from '@/components'
@@ -44,6 +45,7 @@ export default function Home () {
               <button onClick={() => setCopied(true)}>copy</button>
             </CopyToClipboard>
             {copied && <span>text copied!!</span>}
+            <QRCode value={domain + shortURL} />
           </>
         )}
         <span>{error}</span>

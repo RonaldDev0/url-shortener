@@ -1,1 +1,1 @@
-export const domain: string = 'localhost:3000/'
+export const domain: string = 'https:192.168.0.2/'
