@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 // Compoents
-import { domain } from '@/components'
+import { domain, urlValidation } from '@/components'
 
 export default function Home () {
   const inputRef = useRef<any>()
@@ -13,6 +13,8 @@ export default function Home () {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
+    const url = urlValidation(inputRef.current.value)
+    console.log(url)
     try {
       const { shortUrl } = await getData(inputRef.current.value)
       setShortURL(shortUrl)
