@@ -8,18 +8,24 @@ import { domain, urlValidation } from '@/components'
 
 export default function Home () {
   const inputRef = useRef<any>()
-  const [shortURL, setShortURL] = useState<string>('')
+  const [shortURL, setShortURL] = useState<any>(null)
+  const [error, setError] = useState<any>(null)
   const [copied, setCopied] = useState<boolean>(false)
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    const url = urlValidation(inputRef.current.value)
-    console.log(url)
-    try {
-      const { shortUrl } = await getData(inputRef.current.value)
-      setShortURL(shortUrl)
-    } catch (error) {
-      console.log(error)
+    const { success, data }: any = urlValidation(inputRef.current.value)
+    if (success) {
+      try {
+        const { shortUrl } = await getData(data)
+        setShortURL(shortUrl)
+        setError(null)
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      setError('invalid url')
+      setShortURL(null)
     }
   }
 
@@ -40,6 +46,7 @@ export default function Home () {
             {copied && <span>text copied!!</span>}
           </>
         )}
+        <span>{error}</span>
       </form>
     </div>
   )
