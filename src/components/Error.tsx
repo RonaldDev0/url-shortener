@@ -5,8 +5,8 @@ interface props {
 
 export default function Error ({ error }: props) {
   return (
-    <div>
-      <h1>{error}</h1>
-    </div>
+    <h1 className='my-10'>
+      {error}
+    </h1>
   )
 }

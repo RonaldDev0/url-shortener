@@ -5,10 +5,11 @@ import { urlValidation } from '@/hooks'
 interface props {
   setShortURL: Function
   setError: Function
-  inputRef: any
+  inputRef: any,
+  setModal: Function
 }
 
-export default function UrlForm ({ setShortURL, setError, inputRef }: props) {
+export default function UrlForm ({ setShortURL, setError, inputRef, setModal }: props) {
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     const { success, data }: any = urlValidation(inputRef.current.value)
@@ -17,19 +18,21 @@ export default function UrlForm ({ setShortURL, setError, inputRef }: props) {
         const { shortUrl } = await getData(data)
         setShortURL(shortUrl)
         setError(null)
+        setModal(true)
       } catch (error) {
         console.log(error)
       }
     } else {
-      setError('invalid url')
+      setError('invalid url!!')
       setShortURL(null)
+      setModal(true)
     }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type='text' ref={inputRef} />
-      <button>Shorter</button>
+    <form onSubmit={handleSubmit} className='flex gap-4'>
+      <input type='text' ref={inputRef} placeholder='example.com' className='w-44 focus:w-72 border-2 rounded-lg shadow-xl h-10 transition-all outline-none p-4 focus:border-cyan-500' />
+      <button className='bg-cyan-500 text-gray-50 p-2 rounded-lg hover:bg-cyan-600 transition-all font-bold'>Shorter</button>
     </form>
   )
 }

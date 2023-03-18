@@ -1,6 +1,6 @@
-export default function UrlValidation (url : string) {
+export default function urlValidation (url : string) {
   const URL: string = url.trim()
-  const validate: boolean = (!URL.includes(' ') && URL.includes('.'))
+  const validate: boolean = (!URL.includes(' ') && URL.includes('.') && !URL.endsWith('.'))
 
   if (validate) {
     return { success: true, data: URL }
