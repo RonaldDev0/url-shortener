@@ -1,1 +1,1 @@
-export const domain: string = 'y-ronald7745.vercel.app/'
+export const domain: string = 'urll.fun/'
