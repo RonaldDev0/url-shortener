@@ -1,1 +1,1 @@
-export const domain: string = 'localhost/'
+export const domain: string = window.location.href
