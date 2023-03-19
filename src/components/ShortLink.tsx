@@ -7,8 +7,8 @@ import { domain } from '@/hooks'
 
 // Interfaces
 interface props{
-  shortURL: string,
-  setCopied: Function,
+  shortURL: string
+  setCopied: Function
   copied: boolean
 }
 
@@ -25,7 +25,7 @@ export default function ShortLink ({ shortURL, setCopied, copied }: props) {
         </CopyToClipboard>
       </div>
       <div className='bg-white p-5 dark:bg-white'>
-        <QRCode value={domain + shortURL} />
+        <QRCode value={domain + shortURL} className='dark:text-black' />
       </div>
     </>
   )
