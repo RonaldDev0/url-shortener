@@ -1,6 +1,7 @@
 export { default as Error } from './Error'
 export { default as Header } from './Header'
 export { default as Modal } from './Modal'
+export { default as Notes } from './Notes'
 export { default as ShortLink } from './ShortLink'
 export { default as ToggleTheme } from './ToggleTheme'
 export { default as UrlForm } from './UrlForm'
